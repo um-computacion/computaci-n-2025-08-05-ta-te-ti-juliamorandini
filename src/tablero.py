@@ -1,7 +1,7 @@
-from excepciones import PosOcupadaException
+from src.excepciones import PosOcupadaException
 
 class Tablero:
-    
+
 
     def __init__(self):
 

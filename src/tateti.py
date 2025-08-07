@@ -1,5 +1,5 @@
 from src.excepciones import PosOcupadaException
-from tablero import Tablero
+from src.tablero import Tablero
 
 
 
