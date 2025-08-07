@@ -1,3 +1,4 @@
+from src.excepciones import PosOcupadaException
 from tablero import Tablero
 
 
@@ -14,19 +15,33 @@ class Tateti:
 
     def ocupar_una_de_las_casillas(self, fil, col):
 
-        # pongo la ficha...
+        # Intenta poner la ficha en la posición indicada
 
-        self.tablero.poner_la_ficha(fil, col, self.turno)
+        try:
 
-        # condicion para ganar
+            self.tablero.poner_la_ficha(fil, col, self.turno)
 
-        # cambia turno... va a suceder solo si se pudo poner la ficha
+        except PosOcupadaException as e:
 
-        if self.turno == "X":
+            # Si la posición está ocupada, lanza la excepción para que la maneje el CLI
 
-            self.turno = "0"
+            raise e
 
-        else:
+        ganador = self.tablero.hay_ganador()
 
-            self.turno = "X"
+        if ganador:
+
+            print(f"¡Ganó el jugador {ganador}!")
+
+            exit()
+
+        elif self.tablero.esta_lleno():
+
+            print("¡Empate!")
+
+            exit()
+
+        # Cambia el turno solo si no terminó el juego
+
+        self.turno = "0" if self.turno == "X" else "X"
 
